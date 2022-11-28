@@ -25,7 +25,8 @@ setup(
     entry_points={
         'console_scripts': [
         'test = mte544_lab3.test:main',
-        'Astarttest = mte544_lab3.a_star_skeleton1:main',
+        'astarttest = mte544_lab3.a_star_skeleton1:main',
+        'astar = mte544_lab3.a_star:main',
         ],
     },
 )
