@@ -33,7 +33,7 @@ def astar(maze, start, end):
 
     # Loop until you find the end node
     while len(open_list) > 0:
-
+        
         # Get the current node
         current_node = open_list[0]
         current_index = 0
@@ -61,18 +61,19 @@ def astar(maze, start, end):
         neighbours = [[0, -1], [0, 1], [-1, 0], [1, 0], [-1, -1], [-1, 1], [1, -1], [1, 1]]
         for single_neighbour in neighbours: # Adjacent squares
             # Get node position
-            node_neighbour = [current_node.position[0] + single_neighbour[0], current_node.position[1] + single_neighbour[1]]
+            node_neighbour = (current_node.position[0] + single_neighbour[0], current_node.position[1] + single_neighbour[1])
             # Make sure within range and walkable
-            if (not (0 < node_neighbour[0] < (len(maze) - 1)) or 
-                not (0 < node_neighbour[1] < (len(maze[len(maze)-1]) -1)) or
-                maze[node_neighbour[0]][node_neighbour[1]] != 0
+            
+            if (0 > node_neighbour[0] or node_neighbour[0] > (len(maze) - 1) or 
+               (0 > node_neighbour[1] or node_neighbour[1] > (len(maze[len(maze)-1]) -1)) or
+               maze[node_neighbour[0]][node_neighbour[1]] != 0
             ):
-                continue
+                continue        
             # Create new node
             new_node = node(current_node, node_neighbour)
             # Append
             children.append(new_node)
-
+            
         # Loop through children to update the costs
         for child in children:
             # Child is on the closed list
@@ -84,11 +85,6 @@ def astar(maze, start, end):
                 child.g = current_node.g + 1
                 child.h = ((child.position[0] - end_node.position[0]) ** 2) + ((child.position[1] - end_node.position[1]) ** 2)
                 child.f = child.g + child.h
-                
-                for open_node in open_list:
-                    if child == open_node and child.g > open_node.g:
-                        ####
-                        break ## NEED TO CHECK IF THIS WORKS
 
                 # Complete here code to check whether to add a child to the open list
                 open_list.append(child)
@@ -117,7 +113,7 @@ def main():
     end = (6, 6)
     
     # Compute the path with your implementation of Astar
-    path = np.asarray( astar(maze, start, end), dtype=np.float)
+    path = np.asarray( astar(maze, start, end), dtype=float)
     maze_plot=np.transpose(np.nonzero(maze))
 
     plt.plot(maze_plot[:,0], maze_plot[:,1], 'o')
