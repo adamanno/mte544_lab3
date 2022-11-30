@@ -50,10 +50,28 @@ def astar(maze, start, end):
         if current_node == end_node:
             # Complete here code to return the shortest path found
             path = []
-            return path
+            current = current_node
+            while current is not None:
+                path.append(current.position)
+                current = current.parent
+            return path[::-1]
 
         # Complete here code to generate children, which are the neighboring nodes. You should use 4 or 8 points connectivity for a grid.
         children = []
+        neighbours = [(0, -1), (0, 1), (-1, 0), (1, 0), (-1, -1), (-1, 1), (1, -1), (1, 1)]
+        for single_neighbour in neighbours: # Adjacent squares
+            # Get node position
+            node_neighbour = (current_node.position[0] + single_neighbour[0], current_node.position[1] + single_neighbour[1])
+            # Make sure within range and walkable
+            if (not (0 < node_neighbour[0] < (len(maze) - 1)) or 
+                not (0 < node_neighbour[1] < (len(maze[len(maze)-1]) -1)) or
+                maze[node_neighbour[0]][node_neighbour[1]] != 0
+            ):
+                continue
+            # Create new node
+            new_node = node(current_node, node_neighbour)
+            # Append
+            children.append(new_node)
 
         # Loop through children to update the costs
         for child in children:
@@ -63,9 +81,14 @@ def astar(maze, start, end):
                     break
             else:
                 # Create the f, g, and h values, replace the 0s with appropriate formulations of the costs
-                child.g = 0
-                child.h = 0
-                child.f = 0
+                child.g = current_node.g + 1
+                child.h = ((child.position[0] - end_node.position[0]) ** 2) + ((child.position[1] - end_node.position[1]) ** 2)
+                child.f = child.g + child.h
+                
+                for open_node in open_list:
+                    if child == open_node and child.g > open_node.g:
+                        ####
+                        break ## NEED TO CHECK IF THIS WORKS
 
                 # Complete here code to check whether to add a child to the open list
                 open_list.append(child)
