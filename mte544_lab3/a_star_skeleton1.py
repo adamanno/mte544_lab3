@@ -58,10 +58,10 @@ def astar(maze, start, end):
 
         # Complete here code to generate children, which are the neighboring nodes. You should use 4 or 8 points connectivity for a grid.
         children = []
-        neighbours = [(0, -1), (0, 1), (-1, 0), (1, 0), (-1, -1), (-1, 1), (1, -1), (1, 1)]
+        neighbours = [[0, -1], [0, 1], [-1, 0], [1, 0], [-1, -1], [-1, 1], [1, -1], [1, 1]]
         for single_neighbour in neighbours: # Adjacent squares
             # Get node position
-            node_neighbour = (current_node.position[0] + single_neighbour[0], current_node.position[1] + single_neighbour[1])
+            node_neighbour = [current_node.position[0] + single_neighbour[0], current_node.position[1] + single_neighbour[1]]
             # Make sure within range and walkable
             if (not (0 < node_neighbour[0] < (len(maze) - 1)) or 
                 not (0 < node_neighbour[1] < (len(maze[len(maze)-1]) -1)) or
