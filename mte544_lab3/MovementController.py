@@ -94,7 +94,7 @@ class movementPublisher(Node):
         #Velocity calculation using proportional gain, kw
         #Gain found through experimentation. Too low of a value causes the turtle to not be able to 
         #turn quick enough and thus miss its target
-        kw = 4
+        kw = 0.5
         
         #Angular velocity is just the gain times the required angle, this allows for the turtle to 
         #turn quickly when its facing the wrong direction and slow down when its nearing the right 
@@ -104,8 +104,8 @@ class movementPublisher(Node):
     def move (self):
         vel_msg = Twist()
         ang_tolerance = 0.5
-        dist_tolerance = 0.5
-        end_dist_tolerance = 0.5
+        dist_tolerance = 0.15
+        end_dist_tolerance = 0.05
         lin_speed = 0.1
         if (not self.reached):
             if (self.count == 0):
@@ -150,6 +150,8 @@ class movementPublisher(Node):
                 lin_dist = self.distance_calculator(self.path[self.count][0], self.path[self.count][1])
                 if (lin_dist >= end_dist_tolerance):
                     vel_msg.linear.x = self.lin_velocity_calculator(self.path[self.count][0], self.path[self.count][1])
+                    if (vel_msg.linear.x > lin_speed):
+                        vel_msg.linear.x = lin_speed
                     vel_msg.angular.z = self.ang_velocity_calculator(self.path[self.count][0], self.path[self.count][1])
                     self.velocity_publisher.publish(vel_msg)
                     print("Travelling to end goal")
