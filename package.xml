@@ -7,14 +7,14 @@
   <maintainer email="kaurisanselva@gmail.com">hari</maintainer>
   <license>TODO: License declaration</license>
 
-  <depend>rclpy</depend>
-  <depend>std_msgs</depend>
-  <depend>sensor_msgs</depend>
-  <depend>geometry_msgs</depend>
-  <depend>csv</depend>
-  <depend>sqlite3</depend>
-  <depend>rosbag2</depend>
-  <depend>tf2_msgs</depend>
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>nav_msgs</exec_depend>
+  <exec_depend>turtlesim</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>ros2launch</exec_depend>
+  <exec_depend>math</exec_depend>
+  <exec_depend>PIL</exec_depend>  
   
   <test_depend>ament_copyright</test_depend>
   <test_depend>ament_flake8</test_depend>
