@@ -11,6 +11,7 @@ from std_msgs.msg import String
 
 from math import *
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 
 from .a_star_skeleton1 import astar ##Check
@@ -65,7 +66,6 @@ class movementPublisher(Node):
         #self.curr_pose=data
         self.curr_pose.x = round(data.pose.pose.position.x, 4)
         self.curr_pose.y = round(data.pose.pose.position.y, 4)
-        #self.curr_pose.theta = self.quaternionToEuler(data.pose.pose.orientation.x, data.pose.pose.orientation.y, data.pose.pose.orientation.z, data.pose.pose.orientation.w)
         self.curr_pose.theta = self.euler_from_quaternion(data.pose.pose.orientation.x, data.pose.pose.orientation.y, data.pose.pose.orientation.z, data.pose.pose.orientation.w)
         self.curr_pose.theta = round(self.curr_pose.theta, 4)
         #print(data.pose.pose.orientation)
@@ -77,8 +77,7 @@ class movementPublisher(Node):
  
     #Velocity calculation using proportional gain, kv
     def lin_velocity_calculator(self, x, y):
-        #Gain found through experimentation. Too high of a value causes the turtle to overshoot its 
-        #point, which means its spins around and miss the target for a while until it can get to it.
+        #Gain found through experimentation.
         kv = 2
         
         #Linear velocity is just the gain times the distance, this allows for the turtle to move 
@@ -92,8 +91,7 @@ class movementPublisher(Node):
     #Velocity calculation using proportional gain, kw
     def ang_velocity_calculator(self, x, y):
         #Velocity calculation using proportional gain, kw
-        #Gain found through experimentation. Too low of a value causes the turtle to not be able to 
-        #turn quick enough and thus miss its target
+        #Gain found through experimentation.
         kw = 0.5
         
         #Angular velocity is just the gain times the required angle, this allows for the turtle to 

@@ -28,6 +28,7 @@ setup(
         'astartest = mte544_lab3.a_star_skeleton1:main',
         'astar = mte544_lab3.a_star:main',
         'move = mte544_lab3.MovementController:main',
+        'acm = mte544_lab3.a_star_costmap:main',
         ],
     },
 )
