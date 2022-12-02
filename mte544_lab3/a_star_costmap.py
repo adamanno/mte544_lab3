@@ -52,11 +52,16 @@ class getCostMap (Node):
             # x_index * resolution + x_origin = cart_x_coordinate
             # (cart_x_coordinate - x_origin) / resolution = x_index
             # Define here your start and end points
-            start_cart = np.array([0, -0.08])
-            start = (np.rint((start_cart - self.origin)/(self.resolution / (scale_percent / 100)))).astype(int)
-            start = start.tolist()
-            end = (6, 6)
-            
+            # start_cart = np.array([0, -0.08])
+            # start = (np.rint((start_cart - self.origin)/(self.resolution / (scale_percent / 100)))).astype(int)
+            # start = start.tolist()
+            # end = (6, 6)
+
+            start = (29,14)
+            end = (36, 0)
+            print (self.maze[start[0]][start[1]])
+            print (self.maze[end[0]][end[1]])
+                        
             # Compute the path with your implementation of Astar
             path = np.asarray( astar(self.maze, start, end), dtype=float)
             path = path * self.resolution + self.origin
